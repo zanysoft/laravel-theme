@@ -1,0 +1,46 @@
+{
+  "name": "zanysoft/laravel-theme",
+  "description": "Laravel 5 Themes: Asset & Views folder per theme. Theme inheritance. Blade integration and more...",
+  "keywords": [
+    "themes",
+    "views",
+    "assets",
+    "blade",
+    "laravel",
+    "package"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/zanysoft/laravel-theme.git",
+  "authors": [
+    {
+      "name": "Mubashar Ahmad",
+      "email": "zanysoft@outlook.com"
+    }
+  ],
+  "require": {
+    "illuminate/contracts": "5.4.*|5.5.*|5.6.*|5.7.*|5.8.*"
+  },
+  "suggest": {
+    "orchestra/asset": "Use '@css' and '@js' in Blade files"
+  },
+  "autoload": {
+    "files": [
+      "src/Helpers/helpers.php"
+    ],
+    "psr-4": {
+      "ZanySoft\\LaravelTheme\\": "src/",
+      "ZanySoft\\LaravelTheme\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "ZanySoft\\LaravelTheme\\ThemeServiceProvider"
+      ],
+      "aliases": {
+        "Theme": "ZanySoft\\LaravelTheme\\Facades\\Theme"
+      }
+    }
+  },
+  "minimum-stability": "stable"
+}
