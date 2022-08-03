@@ -1,5 +1,7 @@
 <?php namespace ZanySoft\LaravelTheme;
 
+use Config;
+use Exception;
 use Illuminate\Support\Facades\Event;
 
 class Themes
@@ -20,7 +22,7 @@ class Themes
     /**
      * Return $filename path located in themes folder
      *
-     * @param  string $filename
+     * @param string $filename
      * @return string
      */
     public function themes_path($filename = null)
@@ -66,8 +68,8 @@ class Themes
      */
     public function set($themeName)
     {
-        $default = \Config::get('themes.default');
-        $themes_path = \Config::get('themes.themes_path');
+        $default = Config::get('themes.default');
+        $themes_path = Config::get('themes.themes_path');
 
         if (!$this->exists($themeName)) {
 
@@ -192,7 +194,7 @@ class Themes
         $data = include $this->cachePath;
 
         if ($data === null) {
-            throw new \Exception("Invalid theme cache json file [{$this->cachePath}]");
+            throw new Exception("Invalid theme cache json file [{$this->cachePath}]");
         }
         return $data;
     }
@@ -201,7 +203,7 @@ class Themes
     public function scanJsonFiles()
     {
         $themes = [];
-        foreach (glob($this->themesPath.'/*', GLOB_ONLYDIR) as $themeFolder) {
+        foreach (glob($this->themesPath . '/*', GLOB_ONLYDIR) as $themeFolder) {
             $themeFolder = realpath($themeFolder);
             if (file_exists($jsonFilename = $themeFolder . '/' . 'theme.json')) {
 
@@ -220,7 +222,7 @@ class Themes
                 if ($json !== "") {
                     $data = json_decode($json, true);
                     if ($data === null) {
-                        throw new \Exception("Invalid theme.json file at [$themeFolder]");
+                        throw new Exception("Invalid theme.json file at [$themeFolder]");
                     }
                 } else {
                     $data = [];
@@ -330,7 +332,7 @@ class Themes
     /**
      * Return $filename path located in themes folder
      *
-     * @param  string $filename
+     * @param string $filename
      * @return string
      */
     public function asset($path = null)
@@ -397,7 +399,7 @@ class Themes
         if (($theme = $this->current())) {
             return call_user_func_array([$theme, $method], $args);
         } else {
-            throw new \Exception("No theme is set. Can not execute method [$method] in [" . self::class . "]", 1);
+            throw new Exception("No theme is set. Can not execute method [$method] in [" . self::class . "]", 1);
         }
     }
 
@@ -408,7 +410,7 @@ class Themes
     /**
      * Return css link for $href
      *
-     * @param  string $href
+     * @param string $href
      * @return string
      */
     public function css($href)
@@ -419,7 +421,7 @@ class Themes
     /**
      * Return script link for $href
      *
-     * @param  string $href
+     * @param string $href
      * @return string
      */
     public function js($href)
@@ -430,10 +432,10 @@ class Themes
     /**
      * Return img tag
      *
-     * @param  string $src
-     * @param  string $alt
-     * @param  string $Class
-     * @param  array $attributes
+     * @param string $src
+     * @param string $alt
+     * @param string $Class
+     * @param array $attributes
      * @return string
      */
     public function img($src, $alt = '', $class = '', $attributes = [])
@@ -449,7 +451,7 @@ class Themes
     /**
      * Return attributes in html format
      *
-     * @param  array $attributes
+     * @param array $attributes
      * @return string
      */
     private function HtmlAttributes($attributes)

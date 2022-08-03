@@ -1,5 +1,6 @@
 <?php namespace ZanySoft\LaravelTheme;
 
+use Config;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use ZanySoft\LaravelTheme\Commands\createPackage;
@@ -28,7 +29,7 @@ class ThemeServiceProvider extends ServiceProvider
         |--------------------------------------------------------------------------*/
 
         $this->app->singleton('view.finder', function ($app) {
-            return new \ZanySoft\LaravelTheme\ThemeViewFinder(
+            return new ThemeViewFinder(
                 $app['files'],
                 $app['config']['view.paths'],
                 null
@@ -56,8 +57,8 @@ class ThemeServiceProvider extends ServiceProvider
         /*--------------------------------------------------------------------------
         | Activate default theme
         |--------------------------------------------------------------------------*/
-        if (!$themes->current() && \Config::get('themes.default')) {
-            $themes->set(\Config::get('themes.default'));
+        if (!$themes->current() && Config::get('themes.default')) {
+            $themes->set(Config::get('themes.default'));
         }
 
         /*--------------------------------------------------------------------------

@@ -1,5 +1,7 @@
 <?php namespace ZanySoft\LaravelTheme;
 
+use Exception;
+
 class ThemeManifest
 {
 
@@ -48,7 +50,7 @@ class ThemeManifest
         $json = file_get_contents($filename);
         $data = json_decode($json, true);
         if ($data === null) {
-            throw new \Exception("Invalid theme.json file [$filename]");
+            throw new Exception("Invalid theme.json file [$filename]");
         }
         $this->data = $data;
     }

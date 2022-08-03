@@ -1,6 +1,7 @@
 <?php namespace ZanySoft\LaravelTheme\Commands;
 
 use ZanySoft\LaravelTheme\Facades\Theme;
+use ZanySoft\LaravelTheme\ThemeManifest;
 
 class createPackage extends baseCommand
 {
@@ -72,7 +73,7 @@ class createPackage extends baseCommand
         system("cp -r $assetPath {$this->tempPath}/asset");
 
         // Add viewsPath into theme.json file
-        $themeJson = new \ZanySoft\LaravelTheme\ThemeManifest();
+        $themeJson = new ThemeManifest();
 
         $themeJson->loadFromFile("{$this->tempPath}/views/theme.json");
 

@@ -1,6 +1,8 @@
 <?php namespace ZanySoft\LaravelTheme\Exceptions;
 
-class themeNotFound extends \Exception
+use Exception;
+
+class themeNotFound extends Exception
 {
 
     public function __construct($themeName)

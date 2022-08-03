@@ -1,6 +1,8 @@
 <?php namespace ZanySoft\LaravelTheme\Exceptions;
 
-class themeAlreadyExists extends \Exception
+use Exception;
+
+class themeAlreadyExists extends Exception
 {
 
     public function __construct($theme)

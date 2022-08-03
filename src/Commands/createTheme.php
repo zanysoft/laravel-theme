@@ -1,6 +1,7 @@
 <?php namespace ZanySoft\LaravelTheme\Commands;
 
 use ZanySoft\LaravelTheme\Facades\Theme;
+use ZanySoft\LaravelTheme\ThemeManifest;
 
 class createTheme extends baseCommand
 {
@@ -71,7 +72,7 @@ class createTheme extends baseCommand
 
         if ($this->confirm('Create Theme?', true)) {
 
-            $themeJson = new \ZanySoft\LaravelTheme\ThemeManifest(array_merge([
+            $themeJson = new ThemeManifest(array_merge([
                 "name" => $themeName,
                 "extends" => $parentTheme,
                 "asset-path" => $assetPath,

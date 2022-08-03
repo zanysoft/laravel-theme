@@ -2,6 +2,7 @@
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Theme;
 
 class baseCommand extends Command
 {
@@ -9,14 +10,14 @@ class baseCommand extends Command
     /**
      * The filesystem instance.
      *
-     * @var \Illuminate\Filesystem\Filesystem
+     * @var Filesystem
      */
     protected $files;
 
     /**
      * Create a new route command instance.
      *
-     * @param  \Illuminate\Filesystem\Filesystem $files
+     * @param Filesystem $files
      * @return void
      */
     public function __construct(Filesystem $files)
@@ -52,13 +53,13 @@ class baseCommand extends Command
 
     protected function theme_installed($themeName)
     {
-        if (!\Theme::exists($themeName)) {
+        if (!Theme::exists($themeName)) {
 
             return false;
 
         }
 
-        $viewsPath = \Theme::find($themeName)->viewsPath;
+        $viewsPath = Theme::find($themeName)->viewsPath;
 
         return $this->files->exists(themes_path($viewsPath . DIRECTORY_SEPARATOR . 'theme.json'));
     }

@@ -1,5 +1,6 @@
 <?php namespace ZanySoft\LaravelTheme;
 
+use App;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\View\FileViewFinder;
@@ -9,7 +10,7 @@ class ThemeViewFinder extends FileViewFinder
 {
     public function __construct(Filesystem $files, array $paths, array $extensions = null)
     {
-        $this->themeEngine = \App::make('zanysoft.themes');
+        $this->themeEngine = App::make('zanysoft.themes');
         parent::__construct($files, $paths, $extensions);
     }
 
@@ -88,8 +89,8 @@ class ThemeViewFinder extends FileViewFinder
     /**
      * Override replaceNamespace() to add path for custom error pages "Theme/errors/..."
      *
-     * @param  string $namespace
-     * @param  string|array $hints
+     * @param string $namespace
+     * @param string|array $hints
      * @return void
      */
     public function replaceNamespace($namespace, $hints)
@@ -112,7 +113,7 @@ class ThemeViewFinder extends FileViewFinder
     /**
      * Set the array of paths where the views are being searched.
      *
-     * @param  array $paths
+     * @param array $paths
      */
     public function setPaths($paths)
     {
