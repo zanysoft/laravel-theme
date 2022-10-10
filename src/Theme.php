@@ -247,6 +247,16 @@ class Theme
     | Theme Settings
     |--------------------------------------------------------------------------*/
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getTitle()
+    {
+        return $this->settings['title'] ?? '';
+    }
+
     public function setSetting($key, $value)
     {
         $this->settings[$key] = $value;

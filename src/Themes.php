@@ -56,7 +56,6 @@ class Themes
             if ($theme->name == $themeName) {
                 return true;
             }
-
         }
         return false;
     }
@@ -154,7 +153,8 @@ class Themes
     public function add(Theme $theme)
     {
         if ($this->exists($theme->name)) {
-            throw new Exceptions\themeAlreadyExists($theme);
+            return null;
+            //throw new Exceptions\themeAlreadyExists($theme);
         }
         $this->themes[] = $theme;
         return $theme;
@@ -199,6 +199,22 @@ class Themes
         return $data;
     }
 
+    protected function loadJson($jsonFile)
+    {
+        $data = [];
+        if (file_exists($jsonFile)) {
+            // If theme.json is not an empty file parse json values
+            $json = file_get_contents($jsonFile);
+            if ($json !== "") {
+                $data = json_decode($json, true);
+                if ($data === null) {
+                    throw new \Exception("Invalid json file: [$jsonFile]");
+                }
+            }
+        }
+        return $data;
+    }
+
     // Scans theme folders for theme.json files and returns an array of themes
     public function scanJsonFiles()
     {
@@ -232,7 +248,18 @@ class Themes
                 // we will overide this setting if exists
                 $data['views-path'] = $themeName;
 
-                $themes[] = array_merge($defaults, $data);
+                $settings = array_merge($defaults, $data);
+
+                $subdirs = glob($themeFolder . '/*', GLOB_ONLYDIR);
+                $jsonFiles = glob($themeFolder . '/*/*.json');
+                foreach ($jsonFiles as $jsonFile) {
+                    if (file_exists($jsonFile)) {
+                        $_folderName = basename(dirname($jsonFile));
+                        $_jsonData = $this->loadJson($jsonFile);
+                        $settings['sub_settings'][strtolower($_folderName)] = $_jsonData['setting'] ?? $_jsonData['settings'] ?? $_jsonData;
+                    }
+                }
+                $themes[] = $settings;
             }
         }
         return $themes;
