@@ -1,4 +1,6 @@
-<?php namespace ZanySoft\LaravelTheme\Exceptions;
+<?php
+
+namespace ZanySoft\LaravelTheme\Exceptions;
 
 use Exception;
 

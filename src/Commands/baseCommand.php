@@ -1,4 +1,6 @@
-<?php namespace ZanySoft\LaravelTheme\Commands;
+<?php
+
+namespace ZanySoft\LaravelTheme\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;

@@ -1,4 +1,6 @@
-<?php namespace ZanySoft\LaravelTheme\Facades;
+<?php
+
+namespace ZanySoft\LaravelTheme\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

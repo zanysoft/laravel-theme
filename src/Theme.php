@@ -1,4 +1,6 @@
-<?php namespace ZanySoft\LaravelTheme;
+<?php
+
+namespace ZanySoft\LaravelTheme;
 
 use Exception;
 use Illuminate\Support\Facades\Config;

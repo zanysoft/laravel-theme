@@ -1,4 +1,6 @@
-<?php namespace ZanySoft\LaravelTheme\Commands;
+<?php
+
+namespace ZanySoft\LaravelTheme\Commands;
 
 use ZanySoft\LaravelTheme\Facades\Theme;
 

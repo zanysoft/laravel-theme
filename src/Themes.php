@@ -1,4 +1,6 @@
-<?php namespace ZanySoft\LaravelTheme;
+<?php
+
+namespace ZanySoft\LaravelTheme;
 
 use Config;
 use Exception;
@@ -208,7 +210,7 @@ class Themes
             if ($json !== "") {
                 $data = json_decode($json, true);
                 if ($data === null) {
-                    throw new \Exception("Invalid json file: [$jsonFile]");
+                    throw new Exception("Invalid json file: [$jsonFile]");
                 }
             }
         }

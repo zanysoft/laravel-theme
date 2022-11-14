@@ -1,4 +1,6 @@
-<?php namespace ZanySoft\LaravelTheme\Middleware;
+<?php
+
+namespace ZanySoft\LaravelTheme\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

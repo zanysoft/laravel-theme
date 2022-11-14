@@ -1,4 +1,6 @@
-<?php namespace ZanySoft\LaravelTheme;
+<?php
+
+namespace ZanySoft\LaravelTheme;
 
 use App;
 use Illuminate\Filesystem\Filesystem;
