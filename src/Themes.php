@@ -2,7 +2,6 @@
 
 namespace ZanySoft\LaravelTheme;
 
-use Config;
 use Exception;
 use Illuminate\Support\Facades\Event;
 
@@ -69,8 +68,8 @@ class Themes
      */
     public function set($themeName)
     {
-        $default = Config::get('themes.default');
-        $themes_path = Config::get('themes.themes_path');
+        $default = config('themes.default');
+        $themes_path = config('themes.themes_path');
 
         if (!$this->exists($themeName)) {
 
@@ -155,8 +154,7 @@ class Themes
     public function add(Theme $theme)
     {
         if ($this->exists($theme->name)) {
-            return null;
-            //throw new Exceptions\themeAlreadyExists($theme);
+            throw new Exceptions\themeAlreadyExists($theme);
         }
         $this->themes[] = $theme;
         return $theme;

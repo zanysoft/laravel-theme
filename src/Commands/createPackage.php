@@ -2,6 +2,7 @@
 
 namespace ZanySoft\LaravelTheme\Commands;
 
+use Illuminate\Support\Facades\File;
 use ZanySoft\LaravelTheme\Facades\Theme;
 use ZanySoft\LaravelTheme\ThemeManifest;
 
@@ -70,9 +71,9 @@ class createPackage extends baseCommand
         $this->createTempFolder();
 
         // Copy Views+Assets to Temp Folder
-        system("cp -r $viewsPath {$this->tempPath}/views");
+        File::copyDirectory($viewsPath, "{$this->tempPath}/views");
 
-        system("cp -r $assetPath {$this->tempPath}/asset");
+        File::copyDirectory($assetPath, "{$this->tempPath}/asset");
 
         // Add viewsPath into theme.json file
         $themeJson = new ThemeManifest();
@@ -91,6 +92,4 @@ class createPackage extends baseCommand
 
         $this->info("Package created at [$packageFileName]");
     }
-
-
 }

@@ -2,6 +2,7 @@
 
 namespace ZanySoft\LaravelTheme\Commands;
 
+use Illuminate\Support\Facades\File;
 use ZanySoft\LaravelTheme\Facades\Theme;
 use ZanySoft\LaravelTheme\ThemeManifest;
 
@@ -20,7 +21,6 @@ class installPackage extends baseCommand
             $this->info('Error: tar executable could not be found. Please install tar utility before you can continue');
 
             return;
-
         }
 
         $package = $this->argument('package');
@@ -78,7 +78,7 @@ class installPackage extends baseCommand
         if (file_exists($viewsPath)) {
             $this->info("Warning: Views path [$viewsPath] already exists. Will not be installed.");
         } else {
-            exec("mv {$this->tempPath}/views $viewsPath");
+            File::moveDirectory("{$this->tempPath}/views", $viewsPath);
 
             // Remove 'theme-views' from theme.json
             $themeJson->remove('views-path');
@@ -91,7 +91,7 @@ class installPackage extends baseCommand
         if (file_exists($assetPath)) {
             $this->error("Error: Asset path [$assetPath] already exists. Will not be installed.");
         } else {
-            exec("mv {$this->tempPath}/asset $assetPath");
+            File::moveDirectory("{$this->tempPath}/asset", $assetPath);
             $this->info("Theme assets installed to path [$assetPath]");
         }
 

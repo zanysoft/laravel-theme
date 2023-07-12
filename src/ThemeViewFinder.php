@@ -2,7 +2,6 @@
 
 namespace ZanySoft\LaravelTheme;
 
-use App;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\View\FileViewFinder;
@@ -12,7 +11,7 @@ class ThemeViewFinder extends FileViewFinder
 {
     public function __construct(Filesystem $files, array $paths, array $extensions = null)
     {
-        $this->themeEngine = App::make('zanysoft.themes');
+        $this->themeEngine = app()->make('zanysoft.themes');
         parent::__construct($files, $paths, $extensions);
     }
 
@@ -41,6 +40,7 @@ class ThemeViewFinder extends FileViewFinder
         $pathsMap = [
             // 'resources/views/vendor/mail' => 'mail',
             'resources/views/vendor' => 'vendor',
+            'resources/views/modules' => 'modules',
         ];
 
         // Does $namespace exists?

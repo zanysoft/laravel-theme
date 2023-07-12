@@ -1,4 +1,5 @@
 ## Description
+
 [![Laravel](https://img.shields.io/badge/Laravel-5.x-orange.svg?style=flat-square)](http://laravel.com)
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://tldrlegal.com/license/mit-license)
 [![Downloads](https://img.shields.io/packagist/dt/zanysoft/laravel-theme.svg?style=flat-square)](https://packagist.org/packages/zanysoft/laravel-theme)
@@ -18,16 +19,13 @@ Features:
 
 This package is very easy to set up. There are only couple of steps.
 
-Pull this package in through Composer
+Install with Composer
+
 ```
 composer require zanysoft/laravel-theme
 ```
 
-* Laravel 5.5 and up
-Uses package auto discovery feature, no need to edit the `config/app.php` file.
-
-* Laravel 5.4 and below
-Add the package to your application service providers in `config/app.php` file.
+If you’re on Laravel 5.4 or earlier, you’ll need to add the following to your `config/app.php` (for Laravel 5.5 and up these will be auto-discovered by Laravel):
 
 ```php
 'providers' => [
@@ -41,12 +39,9 @@ Add the package to your application service providers in `config/app.php` file.
 ]
 ```
 
+Publish the package config file to your application. Run these commands inside your terminal.
 
-
-Publish the package config file and migrations to your application. Run these commands inside your terminal.
-
-    php artisan vendor:publish --provider="ZanySoft\LaravelTheme\ThemeServiceProvider"
-
+php artisan vendor:publish --provider="ZanySoft\LaravelTheme\ThemeServiceProvider"
 That's it. You are now ready to start theming your applications!
 
 ## 2 Creating a theme
@@ -58,6 +53,7 @@ There are two equivalent ways to define a theme. You may pick the one that suits
 Tip: You should use `php artisan theme:create` command to create a theme. These are the manual steps:
 
 Into the root of your views path create a new folder and then place a theme.json file inside with some configuration:
+
 ```json
 {
   "name"        : "THEME_NAME",
@@ -68,11 +64,11 @@ Into the root of your views path create a new folder and then place a theme.json
 
 **Important notes:**
 
-THEME_NAME is the name of your theme. Can be any string.
-ASSET_PATH is relative to public path. You should create this folder too!
-PARENT_THEME is the name of the parent theme. Set it to null if this is a stand-alone theme
-You can add any additionaly configuration into the json file. You may access to your own settings with Theme:getSetting('key') & Theme:setSetting('key','value') at runtime.
-Why we don't set the views path? Because it is the current path! Just rename current folder and all will work fine.
+* **THEME_NAME** is the name of your theme. Can be any string.
+* **ASSET_PATH** is relative to public path. You should create this folder too!
+* **PARENT_THEME** is the name of the parent theme. Set it to null if this is a stand-alone theme
+* You can add any additionaly configuration into the json file. You may access to your own settings with Theme:getSetting('key') & Theme:setSetting('key','value') at runtime.
+* Why we don't set the views path? Because it is the current path! Just rename current folder and all will work fine.
 
 ####B) Configure a theme within the config/themes.php file
 
@@ -89,7 +85,7 @@ You may want to override previous settings (or define a new theme) into your `co
         |--------------------------------------------------------------------------
         */
         'extends'       => 'theme-to-extend',
-    
+  
         /*
         |--------------------------------------------------------------------------
         | The path where the view are stored. Defaults to 'theme-name' 
@@ -97,7 +93,7 @@ You may want to override previous settings (or define a new theme) into your `co
         |--------------------------------------------------------------------------
         */
         'views-path'    => 'path-to-views',
-        
+    
         /*
         |--------------------------------------------------------------------------
         | The path where the assets are stored. Defaults to 'theme-name' 
@@ -105,7 +101,7 @@ You may want to override previous settings (or define a new theme) into your `co
         |--------------------------------------------------------------------------
         */
         'asset-path'    => 'path-to-assets',
-    
+  
         /*
         |--------------------------------------------------------------------------
         | Custom configuration. You can add your own custom keys.
@@ -116,8 +112,8 @@ You may want to override previous settings (or define a new theme) into your `co
     ],
 ],
 ```
-all settings are optional and can be omitted.
 
+all settings are optional and can be omitted.
 
 ### Implicit Theme decleration
 
@@ -125,12 +121,13 @@ Defining a theme is completely optional.
 
 You may not create a configuration file as long as the defaults fits you! If a theme has not been registered at all then the default values will be used when you activate it.
 
-For example if you Theme::set('my-theme') and you haven't created a theme.json file, nor declared 'my-theme' at the config\themes.php file, then the default locations will be assumed:
+For example if you `Theme::set('my-theme')` and you haven't created a theme.json file, nor declared 'my-theme' at the `config\themes.php` file, then the default locations will be assumed:
 
 * views = THEMES_ROOT_PATH/my-theme
 * assets = public/my-theme
 
 ### Custom configuration settings
+
 You can add your own configuration into a theme (either into the theme.json file or into the config/themes.php).
 
 This is an example theme.json with added configuration:
@@ -145,29 +142,40 @@ This is an example theme.json with added configuration:
   "sidebar-position" : "right"
 }
 ```
+
 You can access these settings at runtime with:
+
 ```php
 Theme::getSetting('key','default'); // read current theme's configuration value for 'key'
 Theme::setSetting('key','value');    // assign a key-value pair to current theme's configuration
 ```
 
 ### Cache Settings
-Warning: Theme settings are cached for faster loading times. If you change any setting you should refresh the cache in order to take effect. Use `php artisan theme:refresh-cache` command for refresh cache. You can disable caching on `config\themes.php`
 
+Warning: Theme settings are cached for faster loading times. If you change any setting you should refresh the cache in order to take effect.
+
+Use `php artisan theme:refresh-cache` command for refresh cache. You can disable caching on `config\themes.php`
 
 ## 3 Build views
+
 Whenever you need the path of a file (image/css/js etc) with root you can retrieve its path with:
+
 ```php
 theme_path('path-to-file')
+
 if(file_exists(theme_path('path-to-file')){
     //
 }
 ```
+
 Whenever you need the url of a local file (image/css/js etc) you can retrieve its path with:
+
 ```php
 theme_url('path-to-file',$absolute) //if absolute true then will return full url other wil return reletive to root.
 ```
-The path-to-file should be relative to Theme Folder (NOT to public!). For example, if you have placed an image in `public/theme-name/img/logo.png` your Blade code would be:
+
+The `path-to-file` should be relative to Theme Folder (NOT to public!). For example, if you have placed an image in `public/theme-name/img/logo.png` your Blade code would be:
+
 ```php
 <img src="{{theme_url('img/logo.png')}}">
 ```
@@ -177,7 +185,7 @@ When you are referring to a local file it will be looked-up in the current theme
 Some useful helpers you can use:
 
 ```php
-    Theme::path('file-name'); // Equivalent to theme_path('filename')
+Theme::path('file-name'); // Equivalent to theme_path('filename')
     Theme::url('file-name'); // Equivalent to theme_url('filename')
     Theme::js('file-name');  // Use with {!! ... !!} syntax
     Theme::css('file-name'); // Use with {!! ... !!} syntax
@@ -187,8 +195,9 @@ Some useful helpers you can use:
 **Fully qualified URLs:**
 
 The generated URLs will be fully qualified. if you need relative to the document root then enter second parameter to false (by default is true):
+
 ```php
-    theme_url('path_to/file.jpg');  // "http://my-domain/theme/path_to/file.jpg"
+theme_url('path_to/file.jpg');  // "http://my-domain/theme/path_to/file.jpg"
     theme_url('path_to/file.jpg',false);  // "/theme/path_to/file.jpg"
 ```
 
@@ -197,22 +206,26 @@ Your domain is retrieved from the `url` setting at the `app.php` config file (by
 **URL queries**
 
 You may include queries in any url function. ie:
+
 ```php
-    Theme::css('theme.css?ver=1.2') // theme-path/theme.css?ver=1.2
+Theme::css('theme.css?ver=1.2') // theme-path/theme.css?ver=1.2
 ```
+
 **Parametric filenames**
 You can include any configuration key (see Custom Theme Settings) of the current theme inside any path string using {curly brackets}. For example:
 
 ```php
-    Theme::url('jquery-{version}.js')
+Theme::url('jquery-{version}.js')
 ```
+
 if there is a "version" key defined in the theme's configuration it will be evaluated and then the filename will be looked-up in the theme hierarchy. (e.g: many commercial themes ship with multiple versions of the main.css for different color-schemes, or you can use language-dependent assets)
 
 ## 4. Extending Themes
 
-You can set a theme to extend an other. Check section [How to Create a theme](##2-creating-a-theme) for instructions. A child theme may override parent's theme Assets and Views.
+You can set a theme to extend an other. Check section [How to Create a theme](#2-creating-a-theme) for instructions. A child theme may override parent's theme Assets and Views.
 
-When you are requesting a view/asset that doesn't exist in your active theme, then it will be resolved from it's parent theme. You can easily create variations of your theme by simply overriding your views/themes that are different. 
+
+When you are requesting a view/asset that doesn't exist in your active theme, then it will be resolved from it's parent theme. You can easily create variations of your theme by simply overriding your views/themes that are different.
 
 #### Assets
 
@@ -242,11 +255,10 @@ Theme::Set('ThemeB'); // ThemeB is Active, it extends ThemeA
 theme_url('image1.jpg'); // = /image1.jpg
 theme_url('image2.jpg'); // = /ThemeA/image2.jpg
 theme_url('image3.jpg'); // = /ThemeB/image3.jpg
-
 ```
 
-All themes fall back to the default laravel folders if a resource is not found on the theme folders. 
-So for example you can leave your common libraries (jquery/bootstrap ...) in your `public` folder and use them from all themes. 
+All themes fall back to the default laravel folders if a resource is not found on the theme folders.
+So for example you can leave your common libraries (jquery/bootstrap ...) in your `public` folder and use them from all themes.
 No need to duplicate common assets for each theme!
 
 #### Views
@@ -333,7 +345,7 @@ public function handle($request, Closure $next)
 Now you need to register your middleware inside the `app\Http\Kernel.php` file. For example if you want to apply your theme to all your routes, then you should add it into the `web` array:
 
 ```php
-    'web' => [
+'web' => [
         // ...
         \App\Http\Middleware\SetThemeFromSession::class,
     ],
@@ -343,7 +355,13 @@ Now you need to register your middleware inside the `app\Http\Kernel.php` file. 
 
 ### theme:list
 
-Will show a list of your installed themes. Example output:
+will show a list of your installed themes.
+
+```
+php artisan theme:list
+```
+
+Example output:
 
 ```sh
 +--------------------+--------------------+----------------------+----------------------+
@@ -356,10 +374,16 @@ Will show a list of your installed themes. Example output:
 
 ### theme:create [THEME-NAME]
 
-Will gather some informatin and create a new theme. This is an example:
+Will gather some information and create a new theme.
 
-```sh
-artisan theme:create
+```
+php artisan theme:create
+```
+
+This is an example:
+
+```shell
+php artisan theme:create
 
  Give theme name:
  > dummyTheme
@@ -391,9 +415,13 @@ Summary:
 
 Will delete theme view & asset folders.
 
+```shell
+php artisan theme:remove
+```
+
 ### theme:package [THEME-NAME]
 
-A distirbutable theme package will be created.
+A distributable theme package will be created.
 
 Theme packages are archives that contain both the Views & Assets folder of a Theme. You may distribute a theme as a package and install it to any laravel application. Theme packages will be stored into `storage/themes` path.
 
@@ -401,8 +429,8 @@ Theme packages are archives that contain both the Views & Assets folder of a The
 
 Will install a theme from a theme package. Views & Assets folders will be created for the theme. Theme information will be extracted from the `themes.json` file inside the archive.
 
-```sh
-artisan theme:install
+```shell
+php artisan theme:install
 
  Select a theme to install::
   [0] theme-admin
@@ -415,4 +443,9 @@ Theme assets installed to path [laravel-app/public/admin]
 
 ### theme:refresh-cache
 
-Rebuilds the theme cache. Theme cache stores all themes settings in a single file to reduce filesystem quering. Theme caching can be disabled at `config\themes.php`
+```shell
+php artisan theme:refresh-cache
+```
+
+Rebuilds the theme cache. Theme cache stores all themes settings in a single file to reduce filesystem querying. Theme caching can be disabled at `config\themes.php`
+

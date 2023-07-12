@@ -11,5 +11,4 @@ class themeNotFound extends Exception
     {
         parent::__construct("Theme $themeName not Found", 1);
     }
-
 }

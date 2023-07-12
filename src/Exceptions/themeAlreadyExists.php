@@ -11,5 +11,4 @@ class themeAlreadyExists extends Exception
     {
         parent::__construct("Theme {$theme->name} already exists", 1);
     }
-
 }
