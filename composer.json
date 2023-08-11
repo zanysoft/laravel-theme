@@ -1,13 +1,14 @@
 {
   "name": "zanysoft/laravel-theme",
-  "description": "Laravel 5 Themes: Asset & Views folder per theme. Theme inheritance. Blade integration and more...",
+  "description": "Laravel theme manager, that will help you organize and maintain your themes inside Laravel projects.",
   "license": "MIT",
   "keywords": [
-    "themes",
+    "laravel-theme",
+    "laravel",
+    "theme",
     "views",
     "assets",
-    "blade",
-    "laravel"
+    "blade"
   ],
   "homepage": "https://github.com/zanysoft/laravel-theme",
   "authors": [
@@ -19,8 +20,8 @@
   ],
   "require": {
     "php": ">=7.4",
-    "illuminate/support": "^6.0|^7.0|^8.0|^9.0",
-    "illuminate/contracts": "^6.0|^7.0|^8.0|^9.0"
+    "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0",
+    "illuminate/contracts": "^6.0|^7.0|^8.0|^9.0|^10.0"
   },
   "suggest": {
     "orchestra/asset": "Use '@css' and '@js' in Blade files"
